@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/post_get_fragment_navigation_menu_nav_request" android:id="@+id/navRequest" android:icon="@drawable/ic_baseline_link_24" />
+    <item android:title="@string/post_get_fragment_navigation_menu_nav_log" android:id="@+id/navLog" android:icon="@drawable/ic_baseline_wysiwyg_24"/>
+</menu>
