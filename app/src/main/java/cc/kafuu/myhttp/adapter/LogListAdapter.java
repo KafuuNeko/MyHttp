@@ -17,7 +17,7 @@ import cc.kafuu.myhttp.R;
 
 public class LogListAdapter extends BaseAdapter {
 
-    private class LogItemStruct {
+    private static class LogItemStruct {
         public long id;
         public String time;
         public String url;
@@ -62,7 +62,7 @@ public class LogListAdapter extends BaseAdapter {
     public void loadItems()
     {
         mItems = new ArrayList<>();
-        Cursor cursor = mDatabase.getReadableDatabase().rawQuery("SELECT Id,RegTime,Url,IsGet,PostParam FROM post_get", null);
+        Cursor cursor = mDatabase.getReadableDatabase().rawQuery("SELECT Id,RegTime,Url,IsGet,PostParam FROM post_get ORDER BY RegTime DESC LIMIT 1000", null);
         while (cursor.moveToNext())
             mItems.add(new LogItemStruct(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3) == 1, cursor.getString(4)));
         cursor.close();

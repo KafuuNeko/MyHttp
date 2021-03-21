@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawer(GravityCompat.START);
             return false;
         });
+
     }
 
     /**

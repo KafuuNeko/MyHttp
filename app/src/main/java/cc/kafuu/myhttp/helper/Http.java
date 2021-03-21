@@ -40,11 +40,7 @@ public class Http {
                 builder.addHeader(entry.getKey(), entry.getValue());
         }
 
-        if(cookieString != null)
-        {
-            for(String cookie : cookieString.split(";"))
-                builder.addHeader("cookie", cookie);
-        }
+        builder.addHeader("cookie", cookieString);
 
         return builder;
     }

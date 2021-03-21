@@ -1,9 +1,11 @@
 package cc.kafuu.myhttp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -29,7 +31,6 @@ import cc.kafuu.myhttp.helper.LogDatabase;
 import okhttp3.Response;
 
 public class RequestFragment extends Fragment {
-
     private Handler mHandler = null;
     private View mRootView = null;
     private EditText mRequestUrl = null;
@@ -131,6 +132,12 @@ public class RequestFragment extends Fragment {
      */
     private void request()
     {
+        if(mRequestUrl.getText().toString().length() == 0)
+        {
+            Toast.makeText(getContext(), "Url is null", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         new Thread(() -> {
             mHandler.post(() -> mRequestButton.setEnabled(false));
 
@@ -166,9 +173,13 @@ public class RequestFragment extends Fragment {
 
             mHandler.post(() -> mRequestButton.setEnabled(true));
 
+            //将本次请求信息写入数据库
             LogDatabase database = new LogDatabase(Objects.requireNonNull(getContext()));
             database.addNewPostGetLog(url, isGet, requestParam, requestParamIsJson, requestHeadText, requestCookieText, responseResult, responseHeaders);
             database.close();
+
+            //发送请求完成广播，以便日志动态更新
+            mHandler.post(()-> LocalBroadcastManager.getInstance(getContext()).sendBroadcast(new Intent("Broadcast.PostGet.Request.Complete")));
 
         }).start();
     }

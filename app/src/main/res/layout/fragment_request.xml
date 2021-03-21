@@ -37,7 +37,7 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:visibility="gone">
 
             <RadioGroup
@@ -100,7 +100,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:text="@string/fragment_request_cookie_prompt" />
 
         <EditText
@@ -116,7 +116,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:text="@string/fragment_request_request_head" />
 
         <EditText
@@ -133,13 +133,13 @@
             android:id="@+id/requestButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:text="@string/fragment_request_request_button" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:text="@string/fragment_request_result_prompt" />
 
         <EditText
@@ -155,7 +155,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="10dp"
             android:text="@string/fragment_request_response_headers" />
 
         <EditText

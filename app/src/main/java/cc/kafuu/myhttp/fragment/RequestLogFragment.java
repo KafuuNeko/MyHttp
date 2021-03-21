@@ -1,13 +1,21 @@
 package cc.kafuu.myhttp.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.os.PersistableBundle;
+import android.service.restrictions.RestrictionsReceiver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -21,6 +29,8 @@ public class RequestLogFragment extends Fragment {
 
     private View mRootView = null;
     private SQLiteOpenHelper mDatabase = null;
+    private ListView mLogList = null;
+    private BaseAdapter mLogListAdapter = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,12 +60,31 @@ public class RequestLogFragment extends Fragment {
     {
         mDatabase = new LogDatabase(Objects.requireNonNull(getContext()));
 
-        ListView logList = mRootView.findViewById(R.id.logList);
-        Button logStatisticsButton = mRootView.findViewById(R.id.logStatisticsButton);
-        Button clearLogButton = mRootView.findViewById(R.id.clearLogButton);
-        Button refreshLogButton = mRootView.findViewById(R.id.refreshLogButton);
+        mLogList = mRootView.findViewById(R.id.logList);
 
-        logList.setAdapter(new LogListAdapter(getContext(), mDatabase));
+        mLogListAdapter = new LogListAdapter(getContext(), mDatabase);
+        mLogList.setAdapter(mLogListAdapter);
 
+        initBroadcast();
+    }
+
+    private BroadcastReceiver mBroadcastReceiver = null;
+
+    private void initBroadcast()
+    {
+        if(mBroadcastReceiver != null)
+        {
+            return;
+        }
+
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                mLogListAdapter.notifyDataSetChanged();
+            }
+        };
+
+        IntentFilter filter = new IntentFilter("Broadcast.PostGet.Request.Complete");
+        LocalBroadcastManager.getInstance(Objects.requireNonNull(getContext())).registerReceiver(mBroadcastReceiver, filter);
     }
 }
