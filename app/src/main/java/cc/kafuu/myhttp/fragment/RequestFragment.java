@@ -7,26 +7,22 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import cc.kafuu.myhttp.dialog.EncodingSelectorDialog;
 import cc.kafuu.myhttp.R;
 import cc.kafuu.myhttp.helper.Http;
 import cc.kafuu.myhttp.helper.LogDatabase;
@@ -46,6 +42,7 @@ public class RequestFragment extends Fragment {
     private EditText mRequestParamText = null;
     private LinearLayout mRequestParamLayout = null;
     private RadioButton mRequestParamIsJson = null;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +65,9 @@ public class RequestFragment extends Fragment {
         mRootView = null;
     }
 
+    /**
+     * 初始化视图
+     */
     private void initView()
     {
         mHandler = new Handler(Looper.getMainLooper());
@@ -83,6 +83,12 @@ public class RequestFragment extends Fragment {
         mRequestParamLayout = mRootView.findViewById(R.id.requestParamLayout);
         mRequestParamIsJson = mRootView.findViewById(R.id.requestParamIsJson);
 
+        Button urlEncodingButton = mRootView.findViewById(R.id.urlEncodingButton);
+        //短按默认使用UTF8
+        urlEncodingButton.setOnClickListener(v -> onUrlEncodingClick(false));
+        //长按用户选择编码方式
+        urlEncodingButton.setOnLongClickListener((View.OnLongClickListener) v -> onUrlEncodingClick(true));
+
         //用户单击请求按钮事件
         mRequestButton.setOnClickListener(v -> request());
 
@@ -90,19 +96,39 @@ public class RequestFragment extends Fragment {
         mIsGetRequest.setOnCheckedChangeListener((buttonView, isChecked) -> mRequestParamLayout.setVisibility(isChecked?View.GONE:View.VISIBLE));
     }
 
-    private Map<String, String> makeHeadMap(String headText)
+
+    /**
+     * UrlEncoding按钮被点击事件
+     * @param longClick 是否为长按触发
+     */
+    private boolean onUrlEncodingClick(boolean longClick)
     {
-        HashMap<String, String> item = new HashMap<>();
+        if(!longClick)
+            urlEncoding("UTF-8");
+        else
+            new EncodingSelectorDialog(getContext()).setListener((dialog, charset) -> urlEncoding(charset.name())).show();
 
-        for(String row : headText.split(";"))
-        {
-            String[] col = row.split("=");
-            if(col.length == 2) item.put(col[0], col[1]);
-        }
-
-        return item;
+        //此处返回值为长按事件监听器返回值
+        return true;
     }
 
+    /**
+     * 使用指定编码对URL输入框内容进行URL编码
+     * @param name 指定的编码名称
+     */
+    private void urlEncoding(String name)
+    {
+        try {
+            mRequestUrl.setText(URLEncoder.encode(mRequestUrl.getText().toString(), name));
+        } catch (UnsupportedEncodingException e) {
+            Toast.makeText(getContext(), "Coding failure", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 提交请求
+     * 用户点击请求后将触发此函数，根据用户输入提交HTTP请求
+     */
     private void request()
     {
         new Thread(() -> {
@@ -120,9 +146,9 @@ public class RequestFragment extends Fragment {
             try {
                 Response response = null;
                 if(isGet)
-                    response = Http.get(url, makeHeadMap(requestHeadText), requestCookieText);
+                    response = Http.get(url, Http.makeHeadMap(requestHeadText), requestCookieText);
                 else
-                    response = Http.post(url, requestParam, requestParamIsJson, makeHeadMap(requestHeadText), requestCookieText);
+                    response = Http.post(url, requestParam, requestParamIsJson, Http.makeHeadMap(requestHeadText), requestCookieText);
 
                 responseResult = Objects.requireNonNull(response.body()).string();
                 final String result = responseResult;

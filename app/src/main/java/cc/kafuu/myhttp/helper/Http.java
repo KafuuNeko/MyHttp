@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.FormBody;
@@ -46,6 +47,24 @@ public class Http {
         }
 
         return builder;
+    }
+
+    /**
+     * 根据头信息字符串构造一个Map
+     * @param headText 头信息字符串
+     * @return 构造结果
+     */
+    public static Map<String, String> makeHeadMap(String headText)
+    {
+        HashMap<String, String> item = new HashMap<>();
+
+        for(String row : headText.split(";"))
+        {
+            String[] col = row.split("=");
+            if(col.length == 2) item.put(col[0], col[1]);
+        }
+
+        return item;
     }
 
     public static Response get(@NonNull String url, Map<String, String> head, String cookieString)

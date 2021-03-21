@@ -10,9 +10,9 @@
     <string name="post_get_fragment_navigation_menu_nav_request">请求</string>
     <string name="post_get_fragment_navigation_menu_nav_log">日志</string>
 
-    <string name="fragment_request_request_url_hint">Url</string>
-    <string name="fragment_request_is_get_request">Get</string>
-    <string name="fragment_request_is_post_request">Post</string>
+    <string name="fragment_request_request_url_hint">URL 长按右边按钮可选择编码</string>
+    <string name="fragment_request_is_get_request">GET</string>
+    <string name="fragment_request_is_post_request">POST</string>
     <string name="fragment_request_submit_parameter_hint">FORM:param1=value1&amp;param2=value2</string>
     <string name="fragment_request_cookie_prompt">Cookie</string>
     <string name="fragment_request_request_button">请求</string>

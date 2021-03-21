@@ -12,14 +12,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/requestUrl"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="@string/fragment_request_request_url_hint"
-            android:inputType="textMultiLine" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/requestUrl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/fragment_request_request_url_hint"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/urlEncodingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="URL编码" />
+        </LinearLayout>
 
         <RadioGroup
             android:layout_width="match_parent"
