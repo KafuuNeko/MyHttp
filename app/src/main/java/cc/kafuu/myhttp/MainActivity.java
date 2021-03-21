@@ -17,6 +17,7 @@ import java.util.Objects;
 
 import cc.kafuu.myhttp.fragment.AboutFragment;
 import cc.kafuu.myhttp.fragment.PostGetFragment;
+import cc.kafuu.myhttp.helper.LogDatabase;
 import cc.kafuu.myhttp.model.FragmentStruct;
 
 public class MainActivity extends AppCompatActivity {

@@ -29,6 +29,7 @@ import java.util.Objects;
 
 import cc.kafuu.myhttp.R;
 import cc.kafuu.myhttp.helper.Http;
+import cc.kafuu.myhttp.helper.LogDatabase;
 import okhttp3.Response;
 
 public class RequestFragment extends Fragment {
@@ -89,11 +90,11 @@ public class RequestFragment extends Fragment {
         mIsGetRequest.setOnCheckedChangeListener((buttonView, isChecked) -> mRequestParamLayout.setVisibility(isChecked?View.GONE:View.VISIBLE));
     }
 
-    private Map<String, String> makeHeadMap()
+    private Map<String, String> makeHeadMap(String headText)
     {
         HashMap<String, String> item = new HashMap<>();
 
-        for(String row : mRequestHeadText.getText().toString().split(";"))
+        for(String row : headText.split(";"))
         {
             String[] col = row.split("=");
             if(col.length == 2) item.put(col[0], col[1]);
@@ -107,25 +108,41 @@ public class RequestFragment extends Fragment {
         new Thread(() -> {
             mHandler.post(() -> mRequestButton.setEnabled(false));
 
+            final String url = mRequestUrl.getText().toString();
+            final boolean isGet = mIsGetRequest.isChecked();
+            final String requestHeadText = mRequestHeadText.getText().toString();
+            final String requestCookieText = mRequestCookieText.getText().toString();
+            final String requestParam = mRequestParamText.getText().toString();
+            final boolean requestParamIsJson = mRequestParamIsJson.isChecked();
+
+            String responseResult = null;
+            String responseHeaders = null;
             try {
                 Response response = null;
-                if(mIsGetRequest.isChecked())
-                    response = Http.get(mRequestUrl.getText().toString(), makeHeadMap(), mRequestCookieText.getText().toString());
+                if(isGet)
+                    response = Http.get(url, makeHeadMap(requestHeadText), requestCookieText);
                 else
-                    response = Http.post(mRequestUrl.getText().toString(), mRequestParamText.getText().toString(), mRequestParamIsJson.isChecked(), makeHeadMap(), mRequestCookieText.getText().toString());
+                    response = Http.post(url, requestParam, requestParamIsJson, makeHeadMap(requestHeadText), requestCookieText);
 
-                final String result = Objects.requireNonNull(response.body()).string();
+                responseResult = Objects.requireNonNull(response.body()).string();
+                final String result = responseResult;
                 mHandler.post(() -> mResultText.setText(result));
 
-                final  String headers = response.headers().toString();
+                responseHeaders = response.headers().toString();
+                final  String headers = responseHeaders;
                 mHandler.post(() -> mResponseHeadersText.setText(headers));
 
             } catch (Exception e) {
-                final String result = e.getMessage();
+                responseResult = e.getMessage();
+                final String result = responseResult;
                 mHandler.post(() -> mResultText.setText(result));
             }
 
             mHandler.post(() -> mRequestButton.setEnabled(true));
+
+            LogDatabase database = new LogDatabase(Objects.requireNonNull(getContext()));
+            database.addNewPostGetLog(url, isGet, requestParam, requestParamIsJson, requestHeadText, requestCookieText, responseResult, responseHeaders);
+            database.close();
 
         }).start();
     }

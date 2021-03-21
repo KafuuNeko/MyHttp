@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="5dp"
     tools:context=".fragment.RequestFragment">
 
     <LinearLayout
@@ -23,6 +24,7 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="5dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -46,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingTop="5dp"
             android:visibility="gone">
 
             <RadioGroup
@@ -77,12 +80,14 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/fragment_request_submit_parameter_hint"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:text="@string/fragment_request_cookie_prompt" />
 
         <EditText
@@ -92,11 +97,13 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/fragment_request_request_head_hint"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:text="@string/fragment_request_request_head" />
 
         <EditText
@@ -106,17 +113,20 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/fragment_request_request_head_hint"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/requestButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:text="@string/fragment_request_request_button" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:text="@string/fragment_request_result_prompt" />
 
         <EditText
@@ -126,11 +136,13 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/fragment_request_result_hint"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:text="@string/fragment_request_response_headers" />
 
         <EditText
@@ -139,7 +151,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

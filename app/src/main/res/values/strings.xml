@@ -18,9 +18,9 @@
     <string name="fragment_request_request_button">请求</string>
     <string name="fragment_request_result_prompt">响应结果</string>
     <string name="fragment_request_result_hint">响应结果</string>
-    <string name="fragment_request_response_headers">请求标头</string>
-    <string name="fragment_request_request_head">请求头</string>
-    <string name="fragment_request_request_head_hint">key1=value1;key2=value2;...</string>
+    <string name="fragment_request_response_headers">响应标头</string>
+    <string name="fragment_request_request_head">请求标头</string>
+    <string name="fragment_request_request_head_hint">key1=value1;key2=value2;…</string>
 
     <string name="fragment_about_submit_feedback">提交反馈</string>
     <string name="fragment_about_personal_website">个人网站</string>
