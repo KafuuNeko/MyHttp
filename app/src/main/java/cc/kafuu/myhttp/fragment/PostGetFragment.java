@@ -72,8 +72,10 @@ public class PostGetFragment extends Fragment {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             final int item_id = item.getItemId();
 
-            if (item_id == R.id.navRequest)     viewPager.setCurrentItem(0);
-            else if (item_id == R.id.navLog)    viewPager.setCurrentItem(1);
+            if (item_id == R.id.navRequest)
+                viewPager.setCurrentItem(0);
+            else if (item_id == R.id.navLog)
+                viewPager.setCurrentItem(1);
 
             return true;
         });

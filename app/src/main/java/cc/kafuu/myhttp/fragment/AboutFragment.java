@@ -42,10 +42,10 @@ public class AboutFragment extends Fragment {
         LinearLayout openSourceLicense = mRootView.findViewById(R.id.openSourceLicense);
         LinearLayout codeWarehouse = mRootView.findViewById(R.id.codeWarehouse);
 
-        submitFeedback.setOnClickListener(v -> { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KafuuNeko/MyHttp/issues"))); });
-        personalWebsite.setOnClickListener(v -> { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://kafuu.cc"))); });
-        openSourceLicense.setOnClickListener(v -> { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KafuuNeko/MyHttp/blob/master/LICENSE"))); });
-        codeWarehouse.setOnClickListener(v -> { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KafuuNeko/MyHttp"))); });
+        submitFeedback.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KafuuNeko/MyHttp/issues"))));
+        personalWebsite.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://kafuu.cc"))));
+        openSourceLicense.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KafuuNeko/MyHttp/blob/master/LICENSE"))));
+        codeWarehouse.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KafuuNeko/MyHttp"))));
 
     }
 
