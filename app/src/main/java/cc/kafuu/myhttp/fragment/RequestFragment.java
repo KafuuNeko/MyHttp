@@ -1,5 +1,6 @@
 package cc.kafuu.myhttp.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -48,8 +50,7 @@ public class RequestFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(mRootView == null)
-        {
+        if (mRootView == null) {
             mRootView = inflater.inflate(R.layout.fragment_request, container, false);
             initView();
         } else {
@@ -69,8 +70,7 @@ public class RequestFragment extends Fragment {
     /**
      * 初始化视图
      */
-    private void initView()
-    {
+    private void initView() {
         mHandler = new Handler(Looper.getMainLooper());
 
         mRequestUrl = mRootView.findViewById(R.id.requestUrl);
@@ -94,17 +94,17 @@ public class RequestFragment extends Fragment {
         mRequestButton.setOnClickListener(v -> request());
 
         //用户是否选择使用GET方式提交，否则则为POST提交，且显示POST参数输入
-        mIsGetRequest.setOnCheckedChangeListener((buttonView, isChecked) -> mRequestParamLayout.setVisibility(isChecked?View.GONE:View.VISIBLE));
+        mIsGetRequest.setOnCheckedChangeListener((buttonView, isChecked) -> mRequestParamLayout.setVisibility(isChecked ? View.GONE : View.VISIBLE));
     }
 
 
     /**
      * UrlEncoding按钮被点击事件
+     *
      * @param longClick 是否为长按触发
      */
-    private boolean onUrlEncodingClick(boolean longClick)
-    {
-        if(!longClick)
+    private boolean onUrlEncodingClick(boolean longClick) {
+        if (!longClick)
             urlEncoding("UTF-8");
         else
             new EncodingSelectorDialog(getContext()).setListener((dialog, charset) -> urlEncoding(charset.name())).show();
@@ -115,10 +115,10 @@ public class RequestFragment extends Fragment {
 
     /**
      * 使用指定编码对URL输入框内容进行URL编码
+     *
      * @param name 指定的编码名称
      */
-    private void urlEncoding(String name)
-    {
+    private void urlEncoding(String name) {
         try {
             mRequestUrl.setText(URLEncoder.encode(mRequestUrl.getText().toString(), name));
         } catch (UnsupportedEncodingException e) {
@@ -130,10 +130,8 @@ public class RequestFragment extends Fragment {
      * 提交请求
      * 用户点击请求后将触发此函数，根据用户输入提交HTTP请求
      */
-    private void request()
-    {
-        if(mRequestUrl.getText().toString().length() == 0)
-        {
+    private void request() {
+        if (mRequestUrl.getText().toString().length() == 0) {
             Toast.makeText(getContext(), "Url is null", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -152,7 +150,7 @@ public class RequestFragment extends Fragment {
             String responseHeaders = null;
             try {
                 Response response = null;
-                if(isGet)
+                if (isGet)
                     response = Http.get(url, Http.makeHeadMap(requestHeadText), requestCookieText);
                 else
                     response = Http.post(url, requestParam, requestParamIsJson, Http.makeHeadMap(requestHeadText), requestCookieText);
@@ -162,7 +160,7 @@ public class RequestFragment extends Fragment {
                 mHandler.post(() -> mResultText.setText(result));
 
                 responseHeaders = response.headers().toString();
-                final  String headers = responseHeaders;
+                final String headers = responseHeaders;
                 mHandler.post(() -> mResponseHeadersText.setText(headers));
 
             } catch (Exception e) {
@@ -179,9 +177,9 @@ public class RequestFragment extends Fragment {
             database.close();
 
             //发送请求完成广播，以便日志动态更新
-            mHandler.post(()-> LocalBroadcastManager.getInstance(getContext()).sendBroadcast(new Intent("Broadcast.PostGet.Request.Complete")));
+            mHandler.post(() -> LocalBroadcastManager.getInstance(getContext()).sendBroadcast(new Intent("Broadcast.PostGet.Request.Complete")));
 
         }).start();
     }
-
+    
 }

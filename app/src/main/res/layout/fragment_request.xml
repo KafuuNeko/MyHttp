@@ -22,6 +22,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/edit_text_shape"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/fragment_request_request_url_hint"
@@ -31,13 +32,16 @@
                 android:id="@+id/urlEncodingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:background="@drawable/button_ripple"
+                android:layout_marginLeft="5dp"
                 android:text="URL编码" />
         </LinearLayout>
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -61,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
             android:visibility="gone">
 
             <RadioGroup
@@ -90,6 +94,7 @@
                 android:id="@+id/requestParamText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_shape"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/fragment_request_submit_parameter_hint"
@@ -100,13 +105,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/fragment_request_cookie_prompt" />
 
         <EditText
             android:id="@+id/requestCookieText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/fragment_request_request_head_hint"
@@ -116,13 +122,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/fragment_request_request_head" />
 
         <EditText
             android:id="@+id/requestHeadText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/fragment_request_request_head_hint"
@@ -133,19 +140,23 @@
             android:id="@+id/requestButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_ripple"
+            android:gravity="center"
+            android:minHeight="0dp"
             android:text="@string/fragment_request_request_button" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/fragment_request_result_prompt" />
 
         <EditText
             android:id="@+id/resultText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/fragment_request_result_hint"
@@ -155,13 +166,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/fragment_request_response_headers" />
 
         <EditText
             android:id="@+id/responseHeadersText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"

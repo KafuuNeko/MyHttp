@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mToolbar = findViewById(R.id.toolbar);
 
+        setSupportActionBar(mToolbar);
+
         //将DrawerLayout与Toolbar关联
         new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open_drawer_content_desc, R.string.close_drawer_content_desc).syncState();
 
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         //接着显示指定的Fragment
         transaction.show(Objects.requireNonNull(mFragment.get(key)).fragment);
 
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
 
         //更新Toolbar的标题
         mToolbar.setTitle(Objects.requireNonNull(mFragment.get(key)).name);
